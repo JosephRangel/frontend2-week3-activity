@@ -2,7 +2,7 @@ name: Calificador Frontend II
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   evaluacion:
