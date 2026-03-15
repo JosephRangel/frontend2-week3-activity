@@ -28,6 +28,7 @@ This repository contains the initial configuration required for our projects. We
 3. **Activate local Pre-commit**:
    To ensure code validations run on your computer before pushing any changes, initialize Husky by running:
    ```bash
+   git config core.hooksPath .husky
    npm run prepare
    ```
    _Note: This will create a hidden `.husky` folder that intercepts your git commands to review the code._
