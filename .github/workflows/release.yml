@@ -41,20 +41,20 @@ jobs:
         run: |
           # Extraemos la versión generada por release-please (ej. v1.0.1)
           VERSION=${{ needs.release-please.outputs.tag_name }}
-          
+
           # Actualizamos el nombre del repositorio para reflejar el proyecto frontend
           DOCKER_REPO="${{ secrets.DOCKER_USERNAME }}/proyecto-frontend-ii"
-          
+
           echo "Construyendo imagen $DOCKER_REPO:$VERSION..."
-          
+
           # Construimos la imagen 
           docker build -t $DOCKER_REPO:$VERSION .
-          
+
           # Etiquetamos como 'latest'
           docker tag $DOCKER_REPO:$VERSION $DOCKER_REPO:latest
-          
+
           echo "Subiendo imágenes a Docker Hub..."
-          
+
           # Empujamos ambas etiquetas
           docker push $DOCKER_REPO:$VERSION
           docker push $DOCKER_REPO:latest
