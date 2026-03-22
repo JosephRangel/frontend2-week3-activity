@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/JosephRangel/frontend2-week3-activity/compare/v1.0.0...v1.1.0) (2026-03-22)
+
+
+### Features
+
+* Add dockerfile ([#11](https://github.com/JosephRangel/frontend2-week3-activity/issues/11)) ([2db1fd4](https://github.com/JosephRangel/frontend2-week3-activity/commit/2db1fd4dcac05335c6236c1e725a1c15b074d47f))
+
 # 1.0.0 (2026-03-22)
 
 
