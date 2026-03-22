@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/JosephRangel/frontend2-week3-activity/compare/v1.1.0...v1.1.1) (2026-03-22)
+
+
+### Bug Fixes
+
+* Add index file ([#12](https://github.com/JosephRangel/frontend2-week3-activity/issues/12)) ([de1b648](https://github.com/JosephRangel/frontend2-week3-activity/commit/de1b6482326a1d8330d04c2c779700d5e07c2351))
+
 # [1.1.0](https://github.com/JosephRangel/frontend2-week3-activity/compare/v1.0.0...v1.1.0) (2026-03-22)
 
 
