@@ -63,12 +63,12 @@ jobs:
         run: |
           VERSION=${{ needs.release.outputs.new_release_version }}
           DOCKER_REPO="${{ secrets.DOCKER_USERNAME }}/proyecto-frontend-ii"
-          
+
           echo "Construyendo imagen $DOCKER_REPO:$VERSION..."
-          
+
           docker build -t $DOCKER_REPO:$VERSION .
           docker tag $DOCKER_REPO:$VERSION $DOCKER_REPO:latest
-          
+
           echo "Subiendo imágenes a Docker Hub..."
           docker push $DOCKER_REPO:$VERSION
           docker push $DOCKER_REPO:latest
