@@ -1,0 +1,13 @@
+# 1.0.0 (2026-03-22)
+
+
+### Bug Fixes
+
+* Update calculadora.js ([#8](https://github.com/JosephRangel/frontend2-week3-activity/issues/8)) ([f5f087d](https://github.com/JosephRangel/frontend2-week3-activity/commit/f5f087d22482328a0c89862340cff74eae1bcf18))
+* Update package.json ([#10](https://github.com/JosephRangel/frontend2-week3-activity/issues/10)) ([71f975f](https://github.com/JosephRangel/frontend2-week3-activity/commit/71f975f7910e1006ddc8ab9119b2e9405be736cb))
+
+
+### Features
+
+* add release.yml file ([#6](https://github.com/JosephRangel/frontend2-week3-activity/issues/6)) ([1b68564](https://github.com/JosephRangel/frontend2-week3-activity/commit/1b68564f897b62ead90e9b6061e47d48724d24cc))
+* Add semantic release instead release-please ([#9](https://github.com/JosephRangel/frontend2-week3-activity/issues/9)) ([0227489](https://github.com/JosephRangel/frontend2-week3-activity/commit/0227489e03233457b8bf5018ccb6514a1583ff27))
