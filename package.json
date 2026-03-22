@@ -1,5 +1,6 @@
 {
   "name": "proyecto-frontend-ii",
+  "private": true,
   "version": "1.0.0",
   "description": "Plantilla base con CI/CD, Linters, Prettier y Vitest",
   "type": "module",
