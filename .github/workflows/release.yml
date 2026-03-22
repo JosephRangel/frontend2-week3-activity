@@ -1,4 +1,4 @@
-name: Release-Docker
+name: CI/CD Pipeline (Semantic Release & Docker)
 
 on:
   push:
@@ -6,30 +6,52 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: write # Necesario para que el bot pueda hacer commits y crear tags
+  issues: write
   pull-requests: write
 
 jobs:
-  release-please:
+  release:
+    name: Semantic Release
     runs-on: ubuntu-latest
+    # Exponemos las variables de salida para usarlas en el job de Docker
     outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
-    steps:
-      - id: release
-        uses: googleapis/release-please-action@v4
-        with:
-          # Cambiamos a 'node' para que lea la versión del package.json
-          release-type: node
-
-  build-docker:
-    needs: release-please
-    # Solo ejecuta este trabajo si release-please creó un nuevo release
-    if: ${{ needs.release-please.outputs.release_created }}
-    runs-on: ubuntu-latest
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # CRÍTICO: Descarga todo el historial para analizar los commits
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Ejecutar Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          # Instalamos los plugins necesarios para actualizar el changelog y hacer el commit
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-docker:
+    name: Build & Push Docker
+    needs: release
+    # Solo se ejecuta si Semantic Release determinó que había cambios suficientes para una nueva versión
+    if: ${{ needs.release.outputs.new_release_published == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código (Versión nueva)
+        uses: actions/checkout@v4
+        with:
+          # Descargamos exactamente el tag que Semantic Release acaba de crear (ej. v1.0.1)
+          ref: v${{ needs.release.outputs.new_release_version }}
 
       - name: Iniciar sesión en Docker Hub
         uses: docker/login-action@v3
@@ -39,22 +61,14 @@ jobs:
 
       - name: Construir y empujar imagen de Docker
         run: |
-          # Extraemos la versión generada por release-please (ej. v1.0.1)
-          VERSION=${{ needs.release-please.outputs.tag_name }}
-
-          # Actualizamos el nombre del repositorio para reflejar el proyecto frontend
+          VERSION=${{ needs.release.outputs.new_release_version }}
           DOCKER_REPO="${{ secrets.DOCKER_USERNAME }}/proyecto-frontend-ii"
-
+          
           echo "Construyendo imagen $DOCKER_REPO:$VERSION..."
-
-          # Construimos la imagen 
+          
           docker build -t $DOCKER_REPO:$VERSION .
-
-          # Etiquetamos como 'latest'
           docker tag $DOCKER_REPO:$VERSION $DOCKER_REPO:latest
-
+          
           echo "Subiendo imágenes a Docker Hub..."
-
-          # Empujamos ambas etiquetas
           docker push $DOCKER_REPO:$VERSION
           docker push $DOCKER_REPO:latest
