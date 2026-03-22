@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/JosephRangel/frontend2-week3-activity/compare/v1.1.1...v1.1.2) (2026-03-22)
+
+
+### Bug Fixes
+
+* Update calculadora.js file ([#14](https://github.com/JosephRangel/frontend2-week3-activity/issues/14)) ([a7ec91f](https://github.com/JosephRangel/frontend2-week3-activity/commit/a7ec91fd5ebae20df7b8f2e6c805453e4a1cf25d))
+
 ## [1.1.1](https://github.com/JosephRangel/frontend2-week3-activity/compare/v1.1.0...v1.1.1) (2026-03-22)
 
 
